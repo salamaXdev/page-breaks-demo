@@ -57,6 +57,20 @@ body {
     color: #111827;
 }
 
+.template-source-note {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #374151;
+}
+
+.template-error {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #b91c1c;
+}
+
 .templates-list {
     display: flex;
     flex-direction: column;
