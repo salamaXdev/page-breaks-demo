@@ -1,0 +1,241 @@
+:root {
+    --page-width: 794px;
+    --page-height: 1122px;
+    --page-bg: #e5e7eb;
+    --paper-color: #ffffff;
+    --shadow: none;
+    --page-gap: 50px;
+    --margin-top: 40px;
+    --margin-bottom: 40px;
+    --header-height: 10px;
+    --footer-height: 10px;
+    --content-side-padding: 40px;
+    --editor-line-height: 28px;
+}
+
+body {
+    background-color: var(--page-bg);
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+    overflow-anchor: none;
+}
+
+.editor-container {
+    display: flex;
+    justify-content: center;
+    padding: var(--page-gap) 0;
+    min-height: 100vh;
+    overflow-anchor: none;
+}
+
+.editor-layout {
+    width: min(1380px, 100%);
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.templates-panel {
+    width: 280px;
+    flex: 0 0 280px;
+    position: sticky;
+    top: 16px;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.templates-title {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.templates-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.template-item {
+    appearance: none;
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    color: #111827;
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.template-item:hover {
+    background: #f3f4f6;
+}
+
+.template-item.is-active {
+    border-color: #111827;
+    background: #e5e7eb;
+    font-weight: 600;
+}
+
+.editor-surface {
+    position: relative;
+    overflow-anchor: none;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+}
+
+/* The Editor Paper Area */
+.ProseMirror {
+    width: var(--page-width);
+    min-height: var(--page-height);
+    padding: calc(var(--margin-top) + var(--header-height)) var(--content-side-padding) 0 var(--content-side-padding);
+    background: var(--paper-color);
+    box-shadow: var(--shadow);
+    box-sizing: border-box;
+    outline: none;
+    position: relative;
+    overflow: visible;
+    line-height: var(--editor-line-height);
+    overflow-anchor: none;
+}
+
+@media (max-width: 1100px) {
+    .editor-layout {
+        flex-direction: column;
+    }
+
+    .templates-panel {
+        width: 100%;
+        flex: 0 0 auto;
+        position: static;
+    }
+
+    .editor-surface {
+        width: 100%;
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+}
+
+/* Page Break Widget (The Space Between Pages) */
+.page-break-widget {
+    user-select: none;
+    pointer-events: none;
+    display: block;
+    /* Match the editor width exactly */
+    width: var(--page-width);
+    min-width: var(--page-width);
+    max-width: var(--page-width);
+    /* Offset the editor padding (40px) to align it */
+    margin-left: calc(-1 * var(--content-side-padding));
+    position: relative;
+    z-index: 10;
+    background-color: var(--page-bg);
+    /* Prevent margin collapse from adjacent content */
+    overflow: hidden;
+}
+
+.page-break-content {
+    display: flex;
+    flex-direction: column;
+    width: var(--page-width);
+    background-color: var(--page-bg);
+}
+
+.page-footer {
+    /* margin-bottom(96) + footer-height(60) = 156px */
+    height: calc(var(--margin-bottom) + var(--footer-height));
+    width: 100%;
+    background: var(--paper-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    /* Force black color to be visible */
+    font-size: 14px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 20;
+    /* Ensure it's above filler */
+}
+
+.page-gap-spacer {
+    height: var(--page-gap);
+    width: 100%;
+    background-color: var(--page-bg);
+}
+
+.page-header {
+    /* margin-top(96) + header-height(40) = 136px */
+    height: calc(var(--margin-top) + var(--header-height));
+    width: 100%;
+    background: var(--paper-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 11px;
+    box-sizing: border-box;
+    align-items: flex-end;
+}
+
+.last-page-area {
+    width: var(--page-width);
+    margin-left: calc(-1 * var(--content-side-padding));
+    background-color: transparent;
+    pointer-events: none;
+    overflow: hidden;
+    /* Prevent margin collapse */
+}
+
+/* Typography */
+.ProseMirror p {
+    margin: 0;
+    line-height: var(--editor-line-height);
+    min-height: var(--editor-line-height);
+    /* Ensure empty paragraphs have height */
+}
+
+.ProseMirror h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0 0 var(--editor-line-height);
+}
+
+/* Print Rules */
+@media print {
+    body {
+        background: white;
+    }
+
+    .editor-container {
+        padding: 0;
+    }
+
+    .ProseMirror {
+        box-shadow: none;
+        width: 100%;
+        padding: var(--margin-top) 80px;
+    }
+
+    .page-break-widget {
+        page-break-after: always;
+        height: 0;
+        overflow: hidden;
+    }
+
+    .page-gap-spacer {
+        display: none;
+    }
+}
